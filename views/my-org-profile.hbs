@@ -20,13 +20,13 @@
                     </button>
                     <div id="student-org-options">
                         <a href="org-list">All Student Clubs</a>
-                        <a href="org-list">My Student Clubs</a>
+                        <a href="my-org-list">My Student Clubs</a>
                     </div>
                 </div>
             </div>
             
             <div id="home-admin">
-                <ul id="list-user">
+                <ul id="home-user">
                     <li>
                         <a href="home">Home</a>
                     </li>
@@ -37,13 +37,13 @@
             </div>
             
             <div class="user-icon">
-                <button name="{{username}}" id="user-options-button">
+                <button name="username" value="{{username}}" id="user-options-button">
                     <img src="/photos/icons8-male-user-50.png">{{username}}
                 </button>
                 <div id="user-options">
-                    <a href="" onclick="
+                    <a id="profile-access"  href="" onclick="
                     $('#profile-hidden').submit(); return false;">Profile</a>
-                    <a href="requests">My Club Requests</a>
+                    <a href="requests">Club Requests</a>
                     <a href="logout">Log Out</a>
                 </div>
 
@@ -55,47 +55,27 @@
             </div>
         </div>
         
-        <div class="org-list">
-            <form id="search"> 
-                <input type="text">
-                <input type="button" value="Search">
-            </form>
-            
-            {{#each orgs}}
-                <div data-id="{{_id}}" id="org-box" href="org-profile">
-                    <h1>{{orgName}}</h1>
-                    <img src="/photos/Joe%20Bouchard%20Polymer%20Clay.jpg"><br><br>
-                    <label id="hq">Headquarter Venue: {{room}}</label> 
-                    
-                    <p id="descript">
-                        {{description}}<br>
-                    </p>
-                    
-                    <form id="org-hidden" action="my-org-profile" method="post">
-                        <input type="hidden"
-                        value="{{username}}" id="username" name="username">
-                        <input type="hidden" name="orgName" value="{{orgName}}">
-                        <input type="hidden" name="room" value="{{room}}">
-                        <input type="hidden" name="description" value="{{description}}">
-                        <input type="submit" id="check-org-profile" value="View Current Org">
-                    </form>
-                </div>
-            {{/each}}
-                
-                <table id="org-table">
-                    <tr>
-                        <th>Student Organization Name</th>
-                        <th>Headquarter Venue</th>
-                        <th>Description</th>
-                    </tr>
-                    <tr>
-                        {{#each orgs}}
-                            <td>{{orgName}}</td>
-                            <td>{{room}}</td>
-                            <td>{{description}}</td>
-                        {{/each}}
-                    </tr>
-                </table>
+        <p id="message">Applied Message</p>
+        
+        <div class="org-profile"></div>
+        <h1>{{org.orgName}}</h1>
+        
+        <div id="org-details">
+            <h5>Description</h5>
+            <p>{{org.description}}</p>
+            <div id="positions-avail">
+                List of Currently Applicable Positions
+                <ol id="List of Currently Applicable Positions:">
+                    {{#each org.openPositions}}
+                        <li>{{this}}</li>
+                    {{/each}}
+                </ol>
+            </div>
         </div>
+        <form id="check-membership" action="check-membership" method="post">
+            <input type="hidden"
+            value="{{username}}" id="username" name="username">
+            <input type="submit" value="Check Current Membership" action="check-membership" method="post">
+        </form>
     </body>
 </html>

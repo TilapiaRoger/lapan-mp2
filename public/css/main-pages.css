@@ -59,7 +59,7 @@ body{
     font-size: 22px;
 }
 
-.main-menu #home-user a{
+.main-menu #home-user a, .main-menu #home-admin a{
     color:whitesmoke;
     text-decoration: none;
     margin-left: 50px;
@@ -93,7 +93,7 @@ body{
     margin: 0;
 }
 
-.main-menu #home-user a:hover, #student-org-menu:hover #student-org-menu-buttton{
+.main-menu #home-user a:hover, .main-menu #home-admin a:hover, #student-org-menu:hover #student-org-menu-buttton{
     background-color: darkseagreen;
 }
 
@@ -181,14 +181,20 @@ form, input{
 }
 
 /*Org-List Box*/
+.org-list{
+    margin-bottom: 50px;
+    display: inline-table
+}
+
 #org-box{
     top: 150px;
     width: 300px;
+    height: auto;
     border: 30px solid seagreen;
     padding: 50px;
     margin: 20px;
     position: relative;
-    display:grid
+    
 }
 
 #org-box h1{
@@ -204,6 +210,65 @@ form, input{
 #hq{
     margin-top: 5px;
     font-weight: bold;
+}
+
+#search{
+    margin-left: 20px;
+    
+}
+
+#search #search-button{
+    width: 12em;
+    height: 3em;
+    margin-left: 0px;
+    border: none;
+    background-color: rgb(125, 168, 145);
+}
+
+#search #search-textbox{
+    width: 30em;
+    height: 3em;
+    margin-left: 0px;
+}
+
+/*Membership Box*/
+.admin-menu{
+    width: 100%;
+    height: 100px;
+    background-color:darkgreen;
+    font-size: 22px;
+}
+
+.admin-menu ul a{
+    color:whitesmoke;
+    text-decoration: none;
+    margin-left: 50px;
+    margin-top: 30px;
+    float: left;
+    text-align:left;
+    padding: 10px 16px;
+}
+
+#current-selected-list-title{
+    margin-left: 40%;
+}
+
+table, th, td{
+    border: 5px solid darkgreen;
+}
+
+table{
+    width: 50%;
+    margin-left: 25%;
+}
+
+#member-change-submit, #cancel-request{
+    width: 20em;
+    height: 3em;
+    margin-left: 40%;
+    border: none;
+    background-color:darkseagreen;
+    margin-top: 50px;
 }
 
 

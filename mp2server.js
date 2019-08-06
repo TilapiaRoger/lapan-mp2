@@ -227,7 +227,8 @@ app.post("/profile", urlencoder, function(req, res){
             else{
                 console.log(doc)
                 res.render("profile.hbs", {
-                    user: doc
+                    user: doc,
+                    username : req.session.username
                 })
             }
             
@@ -237,6 +238,7 @@ app.post("/profile", urlencoder, function(req, res){
 })
 
 app.get("/org-list", function(req, res){
+    
     console.log("Organization List Accessed")
     var err, msg;
     
@@ -259,47 +261,55 @@ app.get("/org-list", function(req, res){
             res.render("org-list.hbs", {
                 orgs: docs,
                 err,
-                msg
+                msg,
+                username : req.session.username
             })
         }
     }
     )
+})
+
+
+app.get("/my-org-list", function(req, res){
+    console.log("Organization List Accessed")
+    var err, msg;
+    
+    err = req.session.err;
+    msg = req.session.msg;
+    
+    req.session.err = null;
+    req.session.msg = null;
+    
+    Org.find({
+        
+    },
+    function(err, docs){
+        if(err){
+            res.render("org-list.hbs", {
+                err
+            })
+        }
+        else{
+            res.render("my-orgs-list.hbs", {
+                orgs: docs,
+                err,
+                msg,
+                username : req.session.username
+            })
+        }
+    }
+    )
+})
+
+app.get("/my-org-members", function(req, res){
+    res.render("members-list.hbs")
     
 })
 
-app.post("/my-org-profile", urlencoder, function(req, res){
-    var //userId,
-    orgName,
-    room,
-    description;
-
-    orgName = req.body.orgName;
-    room = req.body.room;
-    description = req.body.description;
-    
-    console.log("User " + orgName);
-    
-    Org.findOne(
-        {orgName: orgName,
-         description: description
-        },
-        function(err, doc){
-            if(err){
-                res.send(err)
-            }
-            else if(!doc){
-                res.send("Org not found.")
-
-            }
-            else{
-                console.log(doc)
-                res.render("org-profile.hbs", {
-                    org: doc
-                })
-            }
-            
-        }
-    )
+app.post("/result-request", urlencoder, function(req, res){
+    res.render("members-list.hbs",{
+        username : req.session.username
+    })
     
 })
 
@@ -330,7 +340,8 @@ app.post("/org-profile", urlencoder, function(req, res){
             else{
                 console.log(doc)
                 res.render("org-profile.hbs", {
-                    org: doc
+                    org: doc,
+                    username : req.session.username
                 })
             }
             
@@ -339,17 +350,56 @@ app.post("/org-profile", urlencoder, function(req, res){
     
 })
 
+app.post("/my-org-profile", urlencoder, function(req, res){
+    var //userId,
+    orgName,
+    room,
+    description;
+
+    orgName = req.body.orgName;
+    room = req.body.room;
+    description = req.body.description;
+    
+    console.log("User " + orgName);
+    
+    Org.findOne(
+        {orgName: orgName,
+         description: description
+        },
+        function(err, doc){
+            if(err){
+                res.send(err)
+            }
+            else if(!doc){
+                res.send("Org does not exist.")
+
+            }
+            else{
+                console.log(doc)
+                res.render("my-org-profile.hbs", {
+                    org: doc,
+                    username : req.session.username
+                })
+            }
+            
+        }
+    )
+})
+
 
 app.get("/requests", urlencoder, function(req, res){
     
-    res.render("requests.hbs")
+    res.render("requests.hbs",{
+        username : req.session.username
+    })
     
     //full implementation of sending moderator request to be fulfilled in phase 3
 })
 
-app.get("/delete", urlencoder, function(req, res){
-    
-    res.render("requests.hbs")
+app.post("/delete", urlencoder, function(req, res){
+    res.render("requests.hbs", {
+        username : req.session.username
+    })
 })
 
 app.post("/apply-membership", urlencoder, function(req, res){
@@ -363,7 +413,18 @@ app.post("/apply-membership", urlencoder, function(req, res){
     description = req.body.description;
     positions = req.body.openPositions;
     
-    res.render("org-profile.hbs")
+    res.render("org-profile.hbs", {
+        username : req.session.username
+    })
+    
+    //full implementation of sending moderator request to be fulfilled in phase 3
+})
+
+app.post("/check-membership", urlencoder, function(req, res){
+    
+    res.render("members-list.hbs", {
+        username : req.session.username
+    })
     
     //full implementation of sending moderator request to be fulfilled in phase 3
 })

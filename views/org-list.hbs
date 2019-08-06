@@ -20,13 +20,13 @@
                     </button>
                     <div id="student-org-options">
                         <a href="org-list">All Student Clubs</a>
-                        <a href="org-list">My Student Clubs</a>
+                        <a href="my-org-list">My Student Clubs</a>
                     </div>
                 </div>
             </div>
             
             <div id="home-admin">
-                <ul id="list-user">
+                <ul id="home-user">
                     <li>
                         <a href="home">Home</a>
                     </li>
@@ -37,13 +37,13 @@
             </div>
             
             <div class="user-icon">
-                <button name="{{username}}" id="user-options-button">
+                <button name="username" value="{{username}}" id="user-options-button">
                     <img src="/photos/icons8-male-user-50.png">{{username}}
                 </button>
                 <div id="user-options">
-                    <a href="" onclick="
+                    <a id="profile-access"  href="" onclick="
                     $('#profile-hidden').submit(); return false;">Profile</a>
-                    <a href="requests">My Club Requests</a>
+                    <a href="requests">Club Requests</a>
                     <a href="logout">Log Out</a>
                 </div>
 
@@ -55,12 +55,12 @@
             </div>
         </div>
         
+        <form id="search" action="search" method="post"> 
+            <input type="text" id="search-textbox">
+            <input type="submit" value="Search" id="search-button">
+        </form>
+        
         <div class="org-list">
-            <form id="search"> 
-                <input type="text">
-                <input type="button" value="Search">
-            </form>
-            
             {{#each orgs}}
                 <div data-id="{{_id}}" id="org-box" href="org-profile">
                     <h1>{{orgName}}</h1>
@@ -88,13 +88,15 @@
                         <th>Headquarter Venue</th>
                         <th>Description</th>
                     </tr>
-                    <tr>
-                        {{#each orgs}}
-                            <td>{{orgName}}</td>
-                            <td>{{room}}</td>
-                            <td>{{description}}</td>
-                        {{/each}}
-                    </tr>
+                    {{#each orgs}}
+                        <tr>
+
+                                <td>{{orgName}}</td>
+                                <td>{{room}}</td>
+                                <td>{{description}}</td>
+
+                        </tr>
+                    {{/each}}
                 </table>
         </div>
     </body>
