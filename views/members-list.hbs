@@ -1,0 +1,91 @@
+<html>
+    <head>
+        <script src="jquery-3.4.1.js"></script>
+        
+        <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+        
+        <link rel="stylesheet" type="text/css" href="/css/main-pages.css">
+        
+        <script src="../menuJS.js">
+        </script>
+        
+        <script>
+            //let currentMenu, pendingMenu;
+            
+            $(document).ready(
+                function(){
+                    showCurrentMembers();
+                    
+                    $("#pending-members").click(showPendingMembers);
+                    
+                    $("#current-members").click(showCurrentMembers);
+                    
+                    $("#current-members").click(showCurrentMembers);
+                    
+                    function showPendingMembers(){
+                        $(".pending-members-list").show();
+                        $(".current-members-list").hide();
+                    }
+                    
+                    function showCurrentMembers(){
+                        $(".pending-members-list").hide();
+                        $(".current-members-list").show();
+                    }
+                }
+            )
+            
+        </script>
+    </head>
+    
+    <body>
+        <div class="main-menu-user">
+            <ul id="home-user">
+                <a href="home-user.hbs">Home</a>
+                <a href="profile.hbs">Profile</a>
+                <a href="#">Group Members</a>
+                <a href="#">Apply as Junior Officer</a>
+                <a href="#">Submit Creatives Requirements</a>
+            </ul>
+            
+            <ul id="home-admin">
+                <a href="home-user.hbs">Home</a>
+                <a href="group-roster.hbs">Group Members</a>
+                <a href="#">Officers</a>
+                <a href="#">Rules</a>
+            </ul>
+            
+            <div class="user-icon">
+                <img>
+                <ul>
+                    <a href="profile.hbs" action="profile" method="post">Profile</a>
+                    <a href="#" action="edit-profile" method="post">Edit Profile</a>
+                    <a href="login.html">Log Out</a>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="admin-menu">
+            <ul>
+                <a href="#" id="pending-members">Pending Members</a>
+                <a href="#" id="current-members">Current Members</a>
+                <a href="#" id="officers">Officers</a>
+            </ul>
+        </div>
+        
+        <div class="pending-members-list">
+            <table>
+                <th>Username</th>
+                <th>Profile Picture</th>
+                <th>Real Name</th>
+                <th>ID Number</th>
+                <th>Accept Membership?</th>
+            </table>
+        </div>
+        
+        <div class="current-members-list">
+            <div id="member-thumbnail">
+                <a href="profile.hbs"><img></a>
+                Username
+            </div>
+        </div>
+    </body>
